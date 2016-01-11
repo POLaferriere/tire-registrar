@@ -1,16 +1,28 @@
 import React from 'react';
-import TIN-Form from './tin-form';
-import VIN-Form from './vin-form';
-import Info-Form from './info-form';
+import $ from 'jquery';
+
+import TINForm from './tin-form';
+import VINForm from './vin-form';
+import InfoForm from './info-form';
 
 var App = React.createClass({
 
+  handleSubmit(e) {
+    e.preventDefault();
+    console.log($('.tire-form').serializeArray());
+  },
+
   render() {
     return (
-      <h1>Tire Registrar</h1>
-      <TIN-Form/>
-      <VIN-Form/>
-      <Info-Form/>
+      <div className="app-container">
+        <h1>Tire Registrar</h1>
+        <form className='tire-form'>
+          <TINForm/>
+          <VINForm/>
+          <InfoForm/>
+          <input type="submit" onClick={this.handleSubmit}/>
+        </form>
+      </div>
     );
   }
 

@@ -55,7 +55,31 @@ var webpackConfig = {
         test: /\.scss$/,
         loader: "style-loader!css-loader!sass-loader?outputStyle=expanded&" + scssIncludeParams,
         include: path.resolve(__dirname, 'app', 'styles')
-      }
+      },
+      {
+        test: /\.css$/,
+        loader: "style-loader!css-loader"
+      },
+      {
+        test: /\.woff(2)?(\?v=[0-9].[0-9].[0-9])?$/, 
+        loader: "url-loader?limit=10000&mimetype=application/font-woff" 
+      },
+      { 
+        test: /\.(ttf|eot|svg)(\?v=[0-9].[0-9].[0-9])?$/,
+        loader: "file-loader?name=[name].[ext]"
+      },
+      { 
+        test: /\.gif$/,
+        loader: "url-loader?mimetype=image/png" 
+      },
+      {
+        test: /\.png$/,
+        loader: "file-loader" 
+      },
+      {
+        test:/\.jpg$/,
+        loader: "file-loader"
+      },
     ]
   }
 };
