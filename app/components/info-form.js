@@ -48,7 +48,7 @@ const InfoForm = React.createClass({
 				<select name="state">
 					<option value="" disabled>--</option>
 					{states.map((state) => {
-						return <option value={state}>{state}</option>
+						return <option key={state} value={state}>{state}</option>
 					})}
 				</select>	
 				<input 

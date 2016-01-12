@@ -25,7 +25,6 @@ const TINForm = React.createClass({
 				[tin]: true,
 			})
 		} else {
-			console.log(tin);
 			this.setState({
 				[tin]: false,
 			})
