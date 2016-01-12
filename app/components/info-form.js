@@ -45,7 +45,7 @@ const InfoForm = React.createClass({
 					placeholder='Enter City'
 					onChange={this.handleChange.bind(this, 'city')}
 				/>
-				<select name="state">
+				<select name="state" defaultValue=''>
 					<option value="" disabled>--</option>
 					{states.map((state) => {
 						return <option key={state} value={state}>{state}</option>

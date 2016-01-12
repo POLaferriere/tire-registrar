@@ -4,10 +4,10 @@ import Icon from 'react-fa';
 const TINForm = React.createClass({
 	getInitialState() {
 		return {
-			tin1: '',
-			tin2: '',
-			tin3: '',
-			tin4: '',
+			tin1: null,
+			tin2: null,
+			tin3: null,
+			tin4: null,
 			tin1Check: null,
 			tin2Check: null,
 			tin3Check: null,

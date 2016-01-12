@@ -11,3 +11,59 @@
 .fa-check {
 	color: green;
 }
+
+.alert {
+	overflow: hidden;
+}
+
+.error-enter {
+	height: 0;
+	padding: 0 15px;
+	margin: 0;
+}
+
+.error-enter.error-enter-active {
+	height: 52px;
+	padding: 15px;
+	margin-bottom: 20px;
+	transition: all 500ms ease-in-out;
+}
+
+.error-leave {
+	height: 52px;
+	padding: 15px;
+	margin-bottom: 20px;
+}
+
+.error-leave.error-leave-active {
+	height: 0;
+	padding: 0 15px;
+	margin: 0;
+	transition: all 500ms ease-in-out;
+}
+
+.success-enter {
+	height: 0;
+	padding: 0 15px;
+	margin: 0;
+}
+
+.success-enter.success-enter-active {
+	height: 52px;
+	padding: 15px;
+	margin-bottom: 20px;
+	transition: all 500ms ease-in-out;
+}
+
+.success-leave {
+	height: 52px;
+	padding: 15px;
+	margin-bottom: 20px;
+}
+
+.success-leave.success-leave-active {
+	height: 0;
+	padding: 0 15px;
+	margin: 0;
+	transition: all 500ms ease-in-out;
+}

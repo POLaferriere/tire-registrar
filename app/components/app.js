@@ -2,6 +2,7 @@ import React from 'react';
 import $ from 'jquery';
 import _ from 'underscore';
 import {Alert} from 'react-bootstrap';
+import TransitionGroup from 'react-addons-css-transition-group'
 
 import TINForm from './tin-form';
 import VINForm from './vin-form';
@@ -14,6 +15,7 @@ var App = React.createClass({
     return {
       success: false,
       error: false,
+      errorMessage: '',
     }
   },
 
@@ -33,7 +35,15 @@ var App = React.createClass({
       state: _.find(form, (obj) => {return obj.name == 'state'}).value,
       zip: _.find(form, (obj) => {return obj.name == 'zip'}).value
     }
-    const car = new Car({tires, vin, info})
+    const car = new Car({tires, vin, info});
+
+    car.on('invalid', (model, error) => {
+      this.setState({
+        error: true,
+        errorMessage: error,
+      })
+    })
+
     car.save(null, {
       success: (model, res) => {
         this.setState({
@@ -42,9 +52,18 @@ var App = React.createClass({
       } 
     }, {
       error: (model, res) => {
-
+        this.setState({
+          error: true,
+        })
       }
     });
+  },
+
+  closeMessage() {
+    this.setState({
+      success: false,
+      error: false,
+    })
   },
 
   render() {
@@ -52,10 +71,31 @@ var App = React.createClass({
       <div className="app-container">
         <h1>Tire Registrar</h1>
         
-        {this.state.success &&
-          <Alert bsStyle='success'>Tire's sucessfully saved</Alert>}
+        
+        <TransitionGroup 
+          transitionName='success' 
+          transitionEnterTimeout={500} 
+          transitionLeaveTimeout={500}
+        >
+          {this.state.success &&
+            <Alert bsStyle='success' bsClass='success-message' onDismiss={this.closeMessage} key={'success'}>
+              {"Tire has sucessfully been saved"}
+            </Alert>}
+        </TransitionGroup>
 
-        {this.state.error &&}
+      
+        <TransitionGroup 
+          transitionName='error' 
+          transitionAppear={true} 
+          transitionAppearTimeout={500}  
+          transitionEnterTimeout={500} 
+          transitionLeaveTimeout={500}
+        >
+          {this.state.error &&
+            <Alert bsStyle='danger' key={this.state.errorMessage} onDismiss={this.closeMessage}>
+              {this.state.errorMessage}
+            </Alert>}
+        </TransitionGroup>
 
         <form className='tire-form'>
           <TINForm/>
