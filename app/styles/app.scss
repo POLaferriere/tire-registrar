@@ -1,9 +1,14 @@
-// @import 'bourbon';
+@import 'bourbon';
 // @import 'neat';
 @import '../../node_modules/bootstrap/dist/css/bootstrap.css';
+@import url(https://fonts.googleapis.com/css?family=PT+Sans:400,700italic);
 
-
-//Icons
+//---------------------Colors----------------------//
+$header: #111111;
+$background: #DDDDDD;
+$highlight1: #AD1D3F;
+$highlight2: #CEC346;
+//----------------------Icons--------------------------//
 .fa-times {
 	color: red;
 }
@@ -12,6 +17,7 @@
 	color: green;
 }
 
+//--------------------Alert animations---------------------//
 .alert {
 	overflow: hidden;
 }
@@ -66,4 +72,132 @@
 	padding: 0 15px;
 	margin: 0;
 	transition: all 500ms ease-in-out;
+}
+
+//----------------Globals--------------------//
+body, html, #application {
+	width: 100%;
+	height: 100%;
+}
+body {
+	background: #DDD;
+
+}
+//-----------------App Header----------------------//
+.app-container {
+	height: 100%;
+}
+.app-header {
+	@include background(linear-gradient(#111, #666))
+	height: 50px;
+	padding: 10px;
+	h1 {
+		font-family: 'PT Sans', sans-serif;
+		font-style: italic;
+		font-weight: bold;
+		font-size: 3rem;
+		color: $highlight2;
+		margin: 0;
+	}
+}
+
+//-----------------Login----------------------//
+.login-page {
+	position: relative;
+	height: 100%;
+	padding-top: 20vh;
+}
+.login-container {
+	background: #EEE;
+	border-radius: 5px;
+	margin: 0 auto;
+	padding: 30px;
+	width: 30%;
+	min-width: 300px;
+	text-align: center;
+}
+
+.login-title {
+	margin-bottom: 50px;	
+}
+
+.login-form {
+	input {
+		display: block;
+		margin: 10px auto;
+		width: 90%;
+		font-size: 1.8rem;
+		text-align: center;
+	}
+	input[type='submit'] {
+		margin: 20px auto;
+		background: $highlight1;
+		border: none;
+		color: $background;
+		width: 50%;
+	}
+}
+
+.login-error {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+//-----------------Signup------------------//
+.signup-page {
+	height: 100%;
+	padding-top: 20vh;
+}
+
+.signup-container {
+	background: #EEE;
+	border-radius: 5px;
+	margin: 0 auto;
+	padding: 30px;
+	text-align: center;
+	width: 50%;
+	h1 {
+		margin-bottom: 50px;
+	}
+}
+
+.signup-site-info {
+	input {
+		display: block;
+		width: 60%;
+		margin: 0 auto;
+		font-size: 1.8rem;
+		&:first-child {
+			margin-bottom: 10px;
+		}
+		&:last-child {
+			margin-bottom: 20px;
+		}
+	}
+}
+
+.signup-personal-info {
+	> * {
+		display: block;
+		width: 60%;
+		margin: 0 auto;
+		font-size: 1.8rem;
+	}
+	.signup-address {
+		display: flex;
+		input, select {
+			&:first-child {
+				flex: 2;
+			}
+			&:nth-child(2) {
+				margin: auto 0;
+				flex: 1;
+			}
+			&:last-child {
+				flex: 2;
+			}
+		}
+	}
 }

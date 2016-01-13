@@ -81,7 +81,7 @@ const Signup = React.createClass({
 			})
 		} else {
 			const user = new User({
-				username: this.state.email,
+				username: this.state.email.toLowerCase(),
 				password: this.state.password1,
 				email: this.state.email,
 				name: this.state.name,
@@ -93,7 +93,7 @@ const Signup = React.createClass({
 			user.save(null, {
 				success: () => {
 					session.authenticate({
-						username: this.state.email,
+						username: this.state.email.toLowerCase(),
 						password: this.state.password1,
 					}).then(() => {
 						this.history.push({}, '/');
@@ -108,8 +108,7 @@ const Signup = React.createClass({
 		const states = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT', 'WA', 'WV', 'WI', 'WY', 'DC']
 
 		return (
-			<div className="signup-container">
-				<h1>Signup</h1>
+			<div className="signup-page">
 
 				<TransitionGroup 
           transitionName='error' 
@@ -124,61 +123,73 @@ const Signup = React.createClass({
             </Alert>}
         </TransitionGroup>
 
-				<form onSubmit={this.handleSubmit}>
-					<input 
-						type="text"
-						className='signup-email' 
-						placeholder='Email'
-						value={this.state.email}
-						onChange={this.handleChange.bind(this, 'email')}
-					/>
-					<input 
-						type="password" 
-						placeholder='Password'
-						value={this.state.password1}
-						onChange={this.handleChange.bind(this, 'password1')}
-					/>
-					<input 
-						type="password" 
-						placeholder='Confirm Password'
-						value={this.state.password2}
-						onChange={this.handleChange.bind(this, 'password2')}
-					/>
-					<input 
-						type="text"
-						placeholder="Company Name"
-						value={this.state.name}
-						onChange={this.handleChange.bind(this, 'name')}
-					/>
-					<input 
-						type="text"
-						placeholder="Company Address"
-						value={this.state.address}
-						onChange={this.handleChange.bind(this, 'address')}
-					/>
-					<input 
-						type="text"
-						placeholder="City"
-						value={this.state.city}
-						onChange={this.handleChange.bind(this, 'city')}
-					/>
-					<select name="state" value={this.state.state} onChange={this.handleChange.bind(this, 'state')}>
-						<option value="" disabled>--</option>
-						{states.map((state) => {
-							return <option key={state} value={state}>{state}</option>
-						})}
-					</select>	
-					<input 
-						type="text"
-						placeholder="ZIP Code"
-						value={this.state.zip}
-						onChange={this.handleChange.bind(this, 'zip')}
-					/>
-					<input type="submit"/>
-				</form>
+				<div className="signup-container">
+					<h1>Signup</h1>
 
-				<Link to='/login'>Go back to log in page</Link>
+					<form onSubmit={this.handleSubmit}>
+						<div className="signup-site-info">
+							<input 
+								type="text"
+								className='signup-email' 
+								placeholder='Email'
+								value={this.state.email}
+								onChange={this.handleChange.bind(this, 'email')}
+							/>
+							<input 
+								type="password" 
+								placeholder='Password'
+								value={this.state.password1}
+								onChange={this.handleChange.bind(this, 'password1')}
+							/>
+							<input 
+								type="password" 
+								placeholder='Confirm Password'
+								value={this.state.password2}
+								onChange={this.handleChange.bind(this, 'password2')}
+							/>
+						</div>
 
+						<div className="signup-personal-info">
+							<input 
+								type="text"
+								placeholder="Company Name"
+								value={this.state.name}
+								onChange={this.handleChange.bind(this, 'name')}
+							/>
+							<input 
+								type="text"
+								placeholder="Company Address"
+								value={this.state.address}
+								onChange={this.handleChange.bind(this, 'address')}
+							/>
+							<div className="signup-address">
+								<input 
+									type="text"
+									placeholder="City"
+									value={this.state.city}
+									onChange={this.handleChange.bind(this, 'city')}
+								/>
+								<select name="state" value={this.state.state} onChange={this.handleChange.bind(this, 'state')}>
+									<option value="" disabled>--</option>
+									{states.map((state) => {
+										return <option key={state} value={state}>{state}</option>
+									})}
+								</select>	
+								<input 
+									type="text"
+									placeholder="ZIP Code"
+									value={this.state.zip}
+									onChange={this.handleChange.bind(this, 'zip')}
+								/>
+							</div>
+						</div>
+
+						<input type="submit"/>
+					</form>
+
+					<Link to='/login'>Go back to log in page</Link>
+
+				</div>
 			</div>
 		)
 	}
