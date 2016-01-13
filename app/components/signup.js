@@ -1,11 +1,13 @@
 import React from 'react';
-import {Link} from 'react-router';
+import {Link, History} from 'react-router';
 import TransitionGroup from 'react-addons-css-transition-group';
 import {Alert} from 'react-bootstrap';
 
 import User from '../models/user';
 
 const Signup = React.createClass({
+	mixins: [History],
+
 	getInitialState() {
 		return {
 			email: '',
@@ -88,13 +90,15 @@ const Signup = React.createClass({
 				state: this.state.state,
 				zip: this.state.zip,
 			})
-			user.save().then(() => {
-				if(session.authenticate({
-					username: this.state.username,
-					password: this.state.password1,
-				})) {
-					console.log('authenticated')
-				} 
+			user.save(null, {
+				success: () => {
+					session.authenticate({
+						username: this.state.email,
+						password: this.state.password1,
+					}).then(() => {
+						this.history.push({}, '/');
+					})
+				}
 			});
 		}
 	},

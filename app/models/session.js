@@ -5,6 +5,7 @@ import User from './user';
 
 const Session = Backbone.Model.extend({
   authenticate(options) {
+    console.log(options)
     if (options.username && options.password) {
       return $.ajax({
         url: "https://api.parse.com/1/login",
