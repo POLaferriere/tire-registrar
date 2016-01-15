@@ -62,18 +62,20 @@ const VINForm = React.createClass({
 	render() {
 		return (
 			<div className="vin-form-container">
-				<p>Enter or Scan Vehicle Identification Number (VIN)</p>
-				<input 
-					type="text" 
-					name='vin'
-					value={this.state.vin} 
-					onChange={this.handleChange}
-					placeholder='VIN'
-				/>
-				{this.state.vinCheck && 
-					<Icon name='check'/>}
-				{this.state.vin != '' && !this.state.vinCheck && 
-					<Icon name='times'/>}
+				<p className='vin-form-label'>Enter or Scan Vehicle Identification Number (VIN)</p>
+				<div className="vin">
+					<input 
+						type="text" 
+						name='vin'
+						value={this.state.vin} 
+						onChange={this.handleChange}
+						placeholder='VIN'
+					/>
+					{this.state.vinCheck && 
+						<Icon name='check'/>}
+					{this.state.vin != '' && !this.state.vinCheck && 
+						<Icon name='times'/>}
+				</div>
 			</div>
 		)
 	}

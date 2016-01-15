@@ -118,7 +118,7 @@ const Signup = React.createClass({
           transitionLeaveTimeout={500}
         >
           {this.state.errorMessage &&
-            <Alert bsStyle='danger' key={this.state.errorMessage} onDismiss={this.closeMessage}>
+            <Alert className='signup-error' bsStyle='danger' key={this.state.errorMessage} onDismiss={this.closeMessage}>
               {this.state.errorMessage}
             </Alert>}
         </TransitionGroup>
@@ -184,10 +184,10 @@ const Signup = React.createClass({
 							</div>
 						</div>
 
-						<input type="submit"/>
+						<input type="submit" className='signup-button' value='Sign Up'/>
 					</form>
 
-					<Link to='/login'>Go back to log in page</Link>
+					<span className="link"><Link to='/login'>Go back to log in page</Link></span>
 
 				</div>
 			</div>

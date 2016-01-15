@@ -1,5 +1,5 @@
 @import 'bourbon';
-// @import 'neat';
+@import 'neat';
 @import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 @import url(https://fonts.googleapis.com/css?family=PT+Sans:400,700italic);
 
@@ -8,13 +8,33 @@ $header: #111111;
 $background: #DDDDDD;
 $highlight1: #AD1D3F;
 $highlight2: #CEC346;
+$dark: #726054;
+
+a {
+	text-decoration: none;
+	color: inherit;
+	&:hover {
+		text-decoration: none;
+		color: inherit;
+	}
+	&:enabled {
+		text-decoration: none;
+		color: inherit;
+	}
+}
 //----------------------Icons--------------------------//
 .fa-times {
 	color: red;
+	margin-left: 10px;
 }
 
 .fa-check {
 	color: green;
+	margin-left: 10px;
+}
+
+.fa-spinner {
+	margin-left: 200px;
 }
 
 //--------------------Alert animations---------------------//
@@ -24,13 +44,14 @@ $highlight2: #CEC346;
 
 .error-enter {
 	height: 0;
-	padding: 0 15px;
+	padding: 0 35px 0 15px;
 	margin: 0;
 }
 
 .error-enter.error-enter-active {
 	height: 52px;
 	padding: 15px;
+	padding-right: 35px;
 	margin-bottom: 20px;
 	transition: all 500ms ease-in-out;
 }
@@ -38,25 +59,27 @@ $highlight2: #CEC346;
 .error-leave {
 	height: 52px;
 	padding: 15px;
+	padding-right: 35px;
 	margin-bottom: 20px;
 }
 
 .error-leave.error-leave-active {
 	height: 0;
-	padding: 0 15px;
+	padding: 0 35px 0 15px;
 	margin: 0;
 	transition: all 500ms ease-in-out;
 }
 
 .success-enter {
 	height: 0;
-	padding: 0 15px;
+	padding: 0 35px 0 15px;
 	margin: 0;
 }
 
 .success-enter.success-enter-active {
 	height: 52px;
 	padding: 15px;
+	padding-right: 35px;
 	margin-bottom: 20px;
 	transition: all 500ms ease-in-out;
 }
@@ -64,33 +87,67 @@ $highlight2: #CEC346;
 .success-leave {
 	height: 52px;
 	padding: 15px;
+	padding-right: 35px;
 	margin-bottom: 20px;
 }
 
 .success-leave.success-leave-active {
 	height: 0;
-	padding: 0 15px;
+	padding: 0 35px 0 15px;
 	margin: 0;
 	transition: all 500ms ease-in-out;
 }
 
+.check-enter,
+.link-enter {
+	opacity: 0;
+}
+
+.check-enter.check-enter-active,
+.link-enter.link-enter-active {
+	opacity: 1;
+	transition: opacity 300ms ease-in-out;
+}
+
+.check-leave,
+.link-leave {
+	opacity: 1;
+}
+
+.check-leave.check-leave-active,
+.link-leave.link-leave-active {
+	opacity: 0;
+	transition: opacity 1ms linear;
+}
 //----------------Globals--------------------//
 body, html, #application {
 	width: 100%;
 	height: 100%;
 }
 body {
-	background: #DDD;
+	background: no-repeat center fixed url('../assets/background.jpg');
 
 }
 //-----------------App Header----------------------//
 .app-container {
 	height: 100%;
 }
-.app-header {
+
+.app-header-container{
 	@include background(linear-gradient(#111, #666))
 	height: 50px;
 	padding: 10px;
+}
+
+.app-header {
+	max-width: 68em;
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+	line-height: 0;
+}
+
+.app-header-left{
 	h1 {
 		font-family: 'PT Sans', sans-serif;
 		font-style: italic;
@@ -99,6 +156,24 @@ body {
 		color: $highlight2;
 		margin: 0;
 	}
+}
+
+.app-header-right{
+	display: flex;
+	align-items: center;
+}
+
+.app-header-links {
+	display: flex;
+	list-style: none;
+	color: $background;
+	margin: auto 0;
+	padding: 0;
+}
+
+.app-header-link {
+	margin: 0 20px;
+	font-size: 1.6rem;
 }
 
 //-----------------Login----------------------//
@@ -135,6 +210,9 @@ body {
 		border: none;
 		color: $background;
 		width: 50%;
+		&:hover {
+			background: darken($highlight1, 10%);
+		}
 	}
 }
 
@@ -145,8 +223,13 @@ body {
 	transform: translateX(-50%);
 }
 
+.link {
+	color: #0645AD;
+}
+
 //-----------------Signup------------------//
 .signup-page {
+	position: relative;
 	height: 100%;
 	padding-top: 20vh;
 }
@@ -157,7 +240,8 @@ body {
 	margin: 0 auto;
 	padding: 30px;
 	text-align: center;
-	width: 50%;
+	width: 40%;
+	min-width: 500px;
 	h1 {
 		margin-bottom: 50px;
 	}
@@ -166,13 +250,14 @@ body {
 .signup-site-info {
 	input {
 		display: block;
-		width: 60%;
+		width: 75%;
 		margin: 0 auto;
 		font-size: 1.8rem;
 		&:first-child {
-			margin-bottom: 10px;
+			margin-bottom: 15px;
 		}
 		&:last-child {
+			margin-top: 5px;
 			margin-bottom: 20px;
 		}
 	}
@@ -181,8 +266,8 @@ body {
 .signup-personal-info {
 	> * {
 		display: block;
-		width: 60%;
-		margin: 0 auto;
+		width: 75%;
+		margin: 5px auto;
 		font-size: 1.8rem;
 	}
 	.signup-address {
@@ -192,12 +277,152 @@ body {
 				flex: 2;
 			}
 			&:nth-child(2) {
-				margin: auto 0;
+				margin: auto 5px;
 				flex: 1;
+
 			}
 			&:last-child {
 				flex: 2;
 			}
 		}
+	}
+}
+
+.signup-button {
+	width: 40%;
+	background: $highlight1;
+	border: none;
+	font-size: 1.8rem;
+	color: $background;
+	margin: 10px 0;
+	&:hover {
+		background: darken($highlight1, 10%);
+	}
+}
+
+.signup-error {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+//-----------------Logout---------------------//
+.logout-container {
+	@include outer-container();
+	background: $background;
+	text-align: center;
+	margin-top: 20vh;
+	padding: 100px 0;
+	border-radius: 5px;
+}
+
+.logout-buttons {
+	.btn {
+		font-size: 2rem;
+		margin: 20px;
+	}
+}
+
+//------------------Dashboard------------------//
+.dashboard-page {
+	@include outer-container();
+	height: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.dashboard-container {
+	@include span-columns(12);
+	background: $background;
+	padding: 30px 5%;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: left;
+}
+
+.alert {
+	display: block;
+}
+
+.tin-form-label {
+	font-size: 1.8rem;
+}
+
+.tin-form-container {
+	input {
+		margin: 5px 0 5px 5px;
+		width: 300px;
+		font-size: 1.8rem;
+	}
+}
+.tin1,
+.tin2,
+.tin3,
+.tin4,
+.vin {
+	position: relative;
+}
+
+.tire-info {
+	display: inline-block;
+	margin-left: 100px;
+}
+
+.vin-form-label {
+	font-size: 1.8rem;
+	margin: 40px 0 10px;
+
+}
+
+.vin-form-container {
+	position: relative;
+	input {
+		margin: 5px 0 5px 5px;
+		width: 300px;
+		font-size: 1.8rem;
+	}
+}
+
+.info-form-container {
+	> * {
+		display: block;
+		margin: 5px 0 5px 5px;
+		width: 300px;
+		font-size: 1.8rem;
+	}
+}
+
+.info-form-label {
+	font-size: 1.8rem;
+	margin: 40px 0 10px;
+}
+
+.info-form-address {
+	display: flex;
+	input, select {
+		&:first-child {
+			flex: 2;
+		}
+		&:nth-child(2) {
+			flex: 1;
+			margin: auto 5px;
+		}
+		&:last-child {
+			flex: 2;
+		}
+	}
+}
+
+.dashboard-submit-button {
+	background: $highlight1;
+	width: 300px;
+	color: $background;
+	border: none;
+	margin: 40px 0 0 5px;
+	font-size: 1.8rem;
+	height: 3rem;
+	&:hover {
+		background: darken($highlight1, 10%);
 	}
 }

@@ -28,7 +28,7 @@ const Login = React.createClass({
 			if(this.props.location.state && this.props.location.state.nextPathname) {
 				this.history.push({}, this.props.location.state.nextPathname)
 			} else {
-				this.histroy.push({}, '/')
+				this.history.push({}, '/')
 			}
 		}, (res) => {
 			this.setState({
@@ -68,7 +68,7 @@ const Login = React.createClass({
 						<input type="password" placeholder='Password' value={this.state.password} onChange={this.handleChange.bind(this, 'password')}/>
 						<input type="submit"/>
 					</form>
-					<p>First time? <Link to='/signup'>Click here to sign up</Link></p>
+					<p>First time? <span className="link"><Link to='/signup'>Click here to sign up</Link></span></p>
 				</div>
 			</div>
 
