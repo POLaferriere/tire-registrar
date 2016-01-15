@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import Parse from 'parse';
 
 $.ajaxSetup({
   beforeSend(xhr, options) {
@@ -11,3 +12,5 @@ $.ajaxSetup({
     }
   }
 });
+
+Parse.initialize('mSc1zgJ05kX6zQDJL0Aaq4i4gLCUbz8gFFFRw6EZ', '171UFItgCbBimTCpXQlOa17UyzVD0d7JhXOawI9M')

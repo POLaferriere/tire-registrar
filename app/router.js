@@ -7,6 +7,7 @@ import Dashboard from './components/dashboard';
 import Login from './components/login';
 import Logout from './components/logout';
 import Signup from './components/signup';
+import Settings from './components/settings';
 
 function requireAuth(next, replace) {
 	if(!session.isAuthenticated()) {
@@ -21,6 +22,7 @@ ReactDOM.render((
 			<Route path='/login' component={Login} />
 			<Route path='/signup' component={Signup} />
 			<Route path='/logout' component={Logout} />
+			<Route path='/settings' component={Settings} />
 		</Route>
 	</Router>
 ), document.getElementById('application'));

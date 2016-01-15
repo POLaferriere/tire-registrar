@@ -345,6 +345,12 @@ body {
 	display: block;
 }
 
+.dashboard-logo {
+	height: 100px;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
 .tin-form-label {
 	font-size: 1.8rem;
 }
@@ -425,4 +431,31 @@ body {
 	&:hover {
 		background: darken($highlight1, 10%);
 	}
+}
+
+//----------------Settings---------------//
+.settings-container{
+	@include outer-container();
+	min-height: calc(100vh - 50px);
+	background: $background;
+	padding: 50px;
+}
+
+.settings-logo {
+	margin: 20px 0;
+}
+
+.file-processor {
+	.select-file,
+	.selected-file {
+		display: inline-block;
+	}
+}
+
+.selected-file {
+	margin-left: 20px;
+}
+
+.upload-file {
+	display: block;
 }

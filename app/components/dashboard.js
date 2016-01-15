@@ -21,10 +21,24 @@ const Dashboard = React.createClass({
     }
   },
 
+  componentWillMount() {
+    this.setState({
+      logo: session.get('currentUser').get('logo')
+    })
+    console.log(this.state.logo)
+  },
+
+  componentDidMount() {
+    this.setState({
+      logo: session.get('currentUser').get('logo')
+    })
+    console.log(this.state.logo)
+
+  },
+
   handleSubmit(e) {
     e.preventDefault();
     const form = $('.tire-form').serializeArray();
-    console.log(form)
 
     let tires = _.filter(form, (obj) => {return /tin/.test(obj.name)});
     tires = tires.map((tire) => {return tire.value})
@@ -91,6 +105,13 @@ const Dashboard = React.createClass({
   },
 
 	render() {
+    const logo = (!!this.state.logo && this.state.logo.url) || '';
+    const logoStyle = {
+      background: 'url(' + logo + ')',
+      backgroundSize: 'contain',
+      backgroundRepeat: 'no-repeat',
+    }
+
 		return (
 			<div className="dashboard-page">
 
@@ -120,6 +141,8 @@ const Dashboard = React.createClass({
                 {this.state.errorMessage}
               </Alert>}
           </TransitionGroup>
+
+          <div className='dashboard-logo' style={logoStyle} />
 
 	        <form className='tire-form'>
 	          <TINForm showInfo={this.showModal}/>
