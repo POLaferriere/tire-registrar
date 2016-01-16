@@ -2,18 +2,19 @@ import React from 'react';
 import Icon from 'react-fa';
 
 const VINForm = React.createClass({
+	propTypes: {
+		vin: React.PropTypes.string.isRequired,
+	},
+
 	getInitialState() {
 		return {
-			vin: '',
 			vinCheck: null
 		}
 	},
 
 	handleChange(e) {
-		let vin = String(e.target.value)
-		this.setState({
-			vin: vin
-		});
+		let vin = e.target.value;
+		this.props.onChange('vin', vin);
 		if (vin.length != 17) {
 			this.setState({
 				vinCheck: false,
@@ -67,13 +68,13 @@ const VINForm = React.createClass({
 					<input 
 						type="text" 
 						name='vin'
-						value={this.state.vin} 
+						value={this.props.vin} 
 						onChange={this.handleChange}
 						placeholder='VIN'
 					/>
 					{this.state.vinCheck && 
 						<Icon name='check'/>}
-					{this.state.vin != '' && !this.state.vinCheck && 
+					{this.props.vin != '' && !this.state.vinCheck && 
 						<Icon name='times'/>}
 				</div>
 			</div>

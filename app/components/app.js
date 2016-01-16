@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 import TransitionGroup from 'react-addons-css-transition-group';
+import Icon from 'react-fa';
 
 var App = React.createClass({
 
@@ -27,7 +28,7 @@ var App = React.createClass({
         <div className="app-header-container">
           <div className="app-header">
             <div className="app-header-left">
-              <h1><Link to='/'>Tire Registrar</Link></h1>
+              <h1><Link to='/'>Tire Registrar &trade;</Link></h1>
             </div>
 
             <TransitionGroup 
@@ -38,10 +39,17 @@ var App = React.createClass({
               transitionLeaveTimeout={300}
             >
               {this.state.loggedIn &&
-                <ul className="app-header-links">
-                  <li className='app-header-link'><Link to='/settings'>Settings</Link></li>
-                  <li className='app-header-link'><Link to='/logout'>Logout</Link></li>
-                </ul>}
+                <div>
+                  <ul className="app-header-links">
+                    <li className='app-header-link'><Link to='/settings'>Settings</Link></li>
+                    <li className='app-header-link'><Link to='/logout'>Logout</Link></li>
+                  </ul>
+                  <Icon name='bars' id='bars' />
+                  <ul className="app-header-menu-links">
+                    <li className='app-header-menu-link'><Link to='/settings'>Settings</Link></li>
+                    <li className='app-header-menu-link'><Link to='/logout'>Logout</Link></li>
+                  </ul>
+                </div>}
             </TransitionGroup>
 
           </div>

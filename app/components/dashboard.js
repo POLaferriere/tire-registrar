@@ -1,7 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
 import _ from 'underscore';
-import {Alert, Modal} from 'react-bootstrap';
+import {Alert, Modal, Button} from 'react-bootstrap';
 import TransitionGroup from 'react-addons-css-transition-group'
 
 import TINForm from './tin-form';
@@ -18,51 +18,45 @@ const Dashboard = React.createClass({
       errorMessage: '',
       showModal: false,
       tin: '',
+      logo: '',
+      car: {
+        tires: [[], [], [], []],
+        vin: '',
+        info: {
+          name: '',
+          address: '',
+          city: '',
+          state: '',
+          zip: '',
+        },
+        user: ''
+      }
     }
   },
 
   componentWillMount() {
-    this.setState({
-      logo: session.get('currentUser').get('logo')
-    })
-    console.log(this.state.logo)
-  },
+    session.on('userLoaded', () => {
+      this.state.car.user = {
+        __type: 'Pointer',
+        className: '_User',
+        objectId: session.get('currentUser').get('objectId')
+      }
+      this.setState({
+        car: this.state.car,
+        logo: session.get('currentUser').get('logo').url
+      })
+      this.forceUpdate();
 
-  componentDidMount() {
-    this.setState({
-      logo: session.get('currentUser').get('logo')
     })
-    console.log(this.state.logo)
-
   },
 
   handleSubmit(e) {
     e.preventDefault();
     const form = $('.tire-form').serializeArray();
 
-    let tires = _.filter(form, (obj) => {return /tin/.test(obj.name)});
-    tires = tires.map((tire) => {return tire.value})
+    this.state.car.tires = _.compact(this.state.car.tires.map((tire) => {return tire.join('')}));
 
-    const vin = _.find(form, (obj) => {return obj.name == 'vin'}).value
-
-    const info = {
-      name: _.find(form, (obj) => {return obj.name == 'name'}).value,
-      streetAddress: _.find(form, (obj) => {return obj.name == 'street'}).value,
-      city: _.find(form, (obj) => {return obj.name == 'city'}).value,
-      state: _.find(form, (obj) => {return obj.name == 'state'}).value,
-      zip: _.find(form, (obj) => {return obj.name == 'zip'}).value,
-    }
-
-    const user = session.get('currentUser').get('objectId')
-
-
-    const car = new Car({tires, vin, info,
-      user: {
-        __type: 'Pointer',
-        className: '_User',
-        objectId: user
-      }  
-    });
+    const car = new Car(this.state.car);
 
     car.on('invalid', (model, error) => {
       this.setState({
@@ -75,6 +69,18 @@ const Dashboard = React.createClass({
       success: (model, res) => {
         this.setState({
           success: true,
+          car: {
+            tires: ['', '', '', ''],
+            vin: '',
+            info: {
+              name: '',
+              address: '',
+              city: '',
+              state: '',
+              zip: '',
+            },
+            user: this.state.user,
+          }
         })
       } 
     }, {
@@ -91,6 +97,7 @@ const Dashboard = React.createClass({
       success: false,
       error: false,
     })
+
   },
 
   showModal(tin) {
@@ -104,13 +111,20 @@ const Dashboard = React.createClass({
     this.setState({showModal: false})
   },
 
+  onChange(state, change) {
+    this.state.car[state] = change;
+    this.setState({
+      car: this.state.car
+    })
+  },
+
 	render() {
-    const logo = (!!this.state.logo && this.state.logo.url) || '';
-    const logoStyle = {
-      background: 'url(' + logo + ')',
-      backgroundSize: 'contain',
-      backgroundRepeat: 'no-repeat',
+    let logoStyle = {
+      background: 'url(' + this.state.logo + ') center no-repeat',
+      backgroundSize: 'contain'
     }
+
+    let car = this.state.car
 
 		return (
 			<div className="dashboard-page">
@@ -142,13 +156,13 @@ const Dashboard = React.createClass({
               </Alert>}
           </TransitionGroup>
 
-          <div className='dashboard-logo' style={logoStyle} />
+          <div className='dashboard-logo' key={this.state.logo} style={logoStyle} />
 
 	        <form className='tire-form'>
-	          <TINForm showInfo={this.showModal}/>
-	          <VINForm/>
-	          <InfoForm/>
-	          <input className='dashboard-submit-button' type="submit" onClick={this.handleSubmit}/>
+	          <TINForm showInfo={this.showModal} tires={car.tires} onChange={this.onChange}/>
+	          <VINForm vin={car.vin} onChange={this.onChange}/>
+	          <InfoForm info={car.info} onChange={this.onChange}/>
+	          <Button bsClass='dashboard-submit-button' onClick={this.handleSubmit}>Save Tires</Button>
 	        </form>
 	      </div>
 

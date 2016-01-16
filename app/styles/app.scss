@@ -101,23 +101,49 @@ a {
 .check-enter,
 .link-enter {
 	opacity: 0;
+	height: 0;
+	margin: 0;
+	padding: 0;
 }
 
 .check-enter.check-enter-active,
 .link-enter.link-enter-active {
 	opacity: 1;
-	transition: opacity 300ms ease-in-out;
+	height: 35px;
+	padding: 6px 12px;
+	margin: 0px 0px 0px 100px;
+	transition: all 300ms ease-in-out;
 }
 
 .check-leave,
 .link-leave {
 	opacity: 1;
+	height: 35px;
 }
 
 .check-leave.check-leave-active,
 .link-leave.link-leave-active {
 	opacity: 0;
+	height: 0;
 	transition: opacity 1ms linear;
+}
+
+.info-enter {
+	max-width: 0;
+}
+
+.info-enter.info-enter-active {
+	max-width: 400px;
+	transition: max-width 500ms ease-in-out;
+}
+
+.info-leave {
+	max-width: 400px;
+}
+
+.info-leave.info-leave-active {
+	max-width: 0;
+	transition: max-width 500ms ease-in-out;
 }
 //----------------Globals--------------------//
 body, html, #application {
@@ -161,6 +187,7 @@ body {
 .app-header-right{
 	display: flex;
 	align-items: center;
+	
 }
 
 .app-header-links {
@@ -169,6 +196,10 @@ body {
 	color: $background;
 	margin: auto 0;
 	padding: 0;
+	@media only screen and (max-width: 700px) {
+		height: 0;
+		overflow: hidden;
+	}
 }
 
 .app-header-link {
@@ -176,6 +207,34 @@ body {
 	font-size: 1.6rem;
 }
 
+
+
+#bars {
+	height: 0;
+	overflow: hidden;
+	@media only screen and (max-width: 700px) {
+		height: auto;
+		font-size: 3rem;
+		color: $background;
+		float: right;
+		margin-right: 20px;
+	}
+}
+
+.app-header-menu-links {
+	position: absolute;
+	right: 0;
+	top: 50px;
+	height: 0;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+.app-header-menu-link {
+	width: 100px;
+}
 //-----------------Login----------------------//
 .login-page {
 	position: relative;
@@ -327,13 +386,14 @@ body {
 //------------------Dashboard------------------//
 .dashboard-page {
 	@include outer-container();
-	height: 100%;
+	min-height: calc(100vh - 50px);
 	display: flex;
 	justify-content: center;
 }
 
 .dashboard-container {
 	@include span-columns(12);
+	@include omega();
 	background: $background;
 	padding: 30px 5%;
 	display: flex;
@@ -353,32 +413,105 @@ body {
 
 .tin-form-label {
 	font-size: 1.8rem;
-}
-
-.tin-form-container {
-	input {
-		margin: 5px 0 5px 5px;
-		width: 300px;
-		font-size: 1.8rem;
+	@media only screen and (max-width: 700px) {
+		text-align: center;
+		font-size: 2.2rem;
 	}
 }
+
+.tin {
+	position: relative;
+	display: flex;
+	align-items: center;
+
+	margin: 5px 0 5px 5px;
+	font-size: 1.8rem;
+
+	@media only screen and (max-width: 700px) {
+		width: 90%;
+		margin: 5px auto;
+	}
+}
+
+.tin-container {
+	display: flex;
+	width: 300px;
+}
+
+.tin-start,
+.tin-end {
+	text-align: center;
+	flex: 4;
+}
+
+.tin-middle {
+	text-align: center;
+	flex: 5;
+}
+
+.check,
+.times {
+}
+
 .tin1,
 .tin2,
 .tin3,
 .tin4,
 .vin {
 	position: relative;
+	@media only screen and (max-width: 700px) {
+		display: flex;
+		flex-flow: column nowrap;
+		align-items: center;
+	}
+	.check, .times {
+		@media only screen and (max-width: 700px) {
+			position: absolute;
+			right: 0;
+			top: 10px;
+
+			font-size: 2rem;
+		}
+	}
 }
 
-.tire-info {
-	display: inline-block;
-	margin-left: 100px;
+.manufacture-info {
+	display: flex;
+	height: 80px;
+	background: $highlight2;
+	border-radius: 5px;
+	margin-left: 50px;
+}
+
+.plant-info,
+.date-info {
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	justify-content: center;
+	margin: 0 10px;
+
+	font-size: 1.5rem;
+
+	overflow: hidden;
+	p {
+		margin: 0;
+	}
+}
+
+.plant-info-container {
+	display: flex;
+	flex-flow: column;
+	align-items: center;
 }
 
 .vin-form-label {
 	font-size: 1.8rem;
 	margin: 40px 0 10px;
-
+	@media only screen and (max-width: 700px) {
+		text-align: center;
+		font-size: 2.2rem;	
+	}
 }
 
 .vin-form-container {
@@ -387,21 +520,38 @@ body {
 		margin: 5px 0 5px 5px;
 		width: 300px;
 		font-size: 1.8rem;
+		@media only screen and (max-width: 700px) {
+			width: 90%;
+			margin: 5px auto;
+		}
 	}
 }
 
 .info-form-container {
+	@media only screen and (max-width: 700px) {
+		margin: 0 auto;
+		display: flex;
+		flex-flow: column nowrap;
+		align-items: center;
+	}
 	> * {
 		display: block;
 		margin: 5px 0 5px 5px;
 		width: 300px;
 		font-size: 1.8rem;
+		@media only screen and (max-width: 700px) {
+			width: 90%;
+		}
 	}
 }
 
 .info-form-label {
 	font-size: 1.8rem;
 	margin: 40px 0 10px;
+	@media only screen and (max-width: 700px) {
+		text-align: center;
+		font-size: 2.2rem;
+	}
 }
 
 .info-form-address {
@@ -430,6 +580,11 @@ body {
 	height: 3rem;
 	&:hover {
 		background: darken($highlight1, 10%);
+	}
+	@media only screen and (max-width: 700px) {
+		display: inline-block;
+		width: 90%;
+		margin: 40px 5%;
 	}
 }
 

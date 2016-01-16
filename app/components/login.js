@@ -66,7 +66,7 @@ const Login = React.createClass({
 					<form className='login-form' onSubmit={this.handleLogin}>
 						<input type="text" placeholder='Email' value={this.state.email} onChange={this.handleChange.bind(this, 'email')}/>
 						<input type="password" placeholder='Password' value={this.state.password} onChange={this.handleChange.bind(this, 'password')}/>
-						<input type="submit"/>
+						<input type="submit" value='Submit'/>
 					</form>
 					<p>First time? <span className="link"><Link to='/signup'>Click here to sign up</Link></span></p>
 				</div>
