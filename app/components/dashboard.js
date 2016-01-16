@@ -48,6 +48,10 @@ const Dashboard = React.createClass({
       this.forceUpdate();
 
     })
+    this.setState({
+      car: this.state.car,
+      logo: session.get('currentUser').get('logo').url
+    })
   },
 
   handleSubmit(e) {

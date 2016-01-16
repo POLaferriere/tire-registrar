@@ -41,6 +41,7 @@ const Settings = React.createClass({
 					url: res._url,
 				}
 			})
+			session.get('currentUser').get('logo').url = res._url;
 		}, () => {console.log('error')});
 	},
 
