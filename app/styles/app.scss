@@ -442,11 +442,13 @@ body {
 .tin-end {
 	text-align: center;
 	flex: 4;
+	min-width: 0;
 }
 
 .tin-middle {
 	text-align: center;
 	flex: 5;
+	min-width: 0;
 }
 
 .check,
@@ -559,13 +561,16 @@ body {
 	input, select {
 		&:first-child {
 			flex: 2;
+			min-width: 0;
 		}
 		&:nth-child(2) {
 			flex: 1;
 			margin: auto 5px;
+			min-width: 0;
 		}
 		&:last-child {
 			flex: 2;
+			min-width: 0;
 		}
 	}
 }
