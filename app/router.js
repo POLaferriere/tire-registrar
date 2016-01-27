@@ -8,6 +8,7 @@ import Login from './components/login';
 import Logout from './components/logout';
 import Signup from './components/signup';
 import Settings from './components/settings';
+import DBTest from './components/db-test';
 
 function requireAuth(next, replace) {
 	if(!session.isAuthenticated()) {
@@ -23,6 +24,8 @@ ReactDOM.render((
 			<Route path='/signup' component={Signup} />
 			<Route path='/logout' component={Logout} />
 			<Route path='/settings' component={Settings} />
+			<Route path='/db-test' component={DBTest} />
+
 		</Route>
 	</Router>
 ), document.getElementById('application'));

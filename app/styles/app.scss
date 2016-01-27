@@ -619,3 +619,11 @@ body {
 .upload-file {
 	display: block;
 }
+
+//----------------db-test-------------------//
+.db-test-container{
+	@include outer-container();
+	min-height: calc(100vh - 50px);
+	background: $background;
+	padding: 50px;
+}

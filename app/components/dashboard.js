@@ -2,13 +2,16 @@ import React from 'react';
 import $ from 'jquery';
 import _ from 'underscore';
 import {Alert, Modal, Button} from 'react-bootstrap';
-import TransitionGroup from 'react-addons-css-transition-group'
+import TransitionGroup from 'react-addons-css-transition-group';
+import store from '../store';
 
 import TINForm from './tin-form';
 import VINForm from './vin-form';
 import InfoForm from './info-form';
 
-import Car from '../models/car'
+import Car from '../models/car';
+import VIN from '../models/vin';
+import Tire from '../models/tire';
 
 const Dashboard = React.createClass({
 	getInitialState() {
@@ -48,48 +51,62 @@ const Dashboard = React.createClass({
       this.forceUpdate();
 
     });
+    let VINs = store.getVINCollection();
+    VINs.fetch();
   },
 
   handleSubmit(e) {
     e.preventDefault();
-    const form = $('.tire-form').serializeArray();
 
-    this.state.car.tires = _.compact(this.state.car.tires.map((tire) => {return tire.join('')}));
 
-    const car = new Car(this.state.car);
-
-    car.on('invalid', (model, error) => {
-      this.setState({
-        error: true,
-        errorMessage: error,
-      })
-    })
-
-    car.save(null, {
-      success: (model, res) => {
-        this.setState({
-          success: true,
-          car: {
-            tires: ['', '', '', ''],
-            vin: '',
-            info: {
-              name: '',
-              address: '',
-              city: '',
-              state: '',
-              zip: '',
+    //TODO: Refactor out of car object
+    let vins = store.getVINCollection();
+    let viNumbers = vins.pluck('VIN');
+    
+    if (_.contains(viNumbers, this.state.car.vin)) {
+      let foundVIN = vins.find((vin) => {return vin.get('VIN') == this.state.car.vin})
+      this.state.car.tires.forEach((tire) => {
+        if (tire.length > 0) {
+          let newTire = new Tire({
+            TIN: tire.join(''),
+            manCode: tire[0].substring(0, 2),
+            dateCode: Number(tire[2]),
+            vin: {
+              __type: 'Pointer',
+              className: 'VIN',
+              objectId: foundVIN.get('objectId'),
             },
-            user: this.state.user,
+            dealer: this.state.car.user
+          })
+          newTire.save();
+        }
+      })
+    } else {
+      let vin = new VIN({
+        VIN: this.state.car.vin,
+        info: this.state.car.info
+      });
+
+      store.addVIN(vin).then((res) => {
+        this.state.car.tires.forEach((tire) => {
+          if (tire.length > 0) {
+            let newTire = new Tire({
+              TIN: tire.join(''),
+              manCode: tire[0].substring(0, 2),
+              dateCode: Number(tire[2]),
+              vin: {
+                __type: 'Pointer',
+                className: 'VIN',
+                objectId: res.objectId,
+              },
+              dealer: this.state.car.user
+            })
+            newTire.save();
           }
         })
-      } 
-    }, {
-      error: (model, res) => {
-        this.setState({
-          error: true,
-        })
-      }
-    });
+      });
+    }
+  
   },
 
   closeMessage() {

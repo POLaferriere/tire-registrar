@@ -24,7 +24,7 @@ const TIN = React.createClass({
 
 	componentDidMount() {
 		let plants = store.getPlantCollection();
-		plants.fetch().then(() => {this.setState({plants: plants}), console.log(plants)})
+		plants.fetch().then(() => {this.setState({plants: plants})})
 	},
 
 	handleChange(i, e) {
@@ -46,7 +46,6 @@ const TIN = React.createClass({
 
 		if (/^[a-z0-9]{4}$/ig.test(tire[0])) {
 			let plant = this.state.plants.find((plant) => {return plant.get('plantCode') == tire[0].slice(0,2).toLowerCase()})
-			console.log(tire[0].slice(0,2).toLowerCase())
 			if(_.isUndefined(plant)) {
 				this.setState({
 					plantInfo: true,
