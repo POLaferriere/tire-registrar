@@ -79,6 +79,21 @@ const Dashboard = React.createClass({
             dealer: this.state.car.user
           })
           newTire.save();
+          //TODO: Set conditions for failure to save
+          this.setState({
+            car: {
+              tires: [[], [], [], []],
+              vin: '',
+              info: {
+                name: '',
+                address: '',
+                city: '',
+                state: '',
+                zip: '',
+              },
+              user: this.state.car.user
+            }
+          })
         }
       })
     } else {
@@ -102,6 +117,21 @@ const Dashboard = React.createClass({
               dealer: this.state.car.user
             })
             newTire.save();
+            //TODO: Set conditions for failure to save
+            this.setState({
+              car: {
+                tires: [[], [], [], []],
+                vin: '',
+                info: {
+                  name: '',
+                  address: '',
+                  city: '',
+                  state: '',
+                  zip: '',
+                },
+                user: this.state.car.user
+              }
+            })
           }
         })
       });

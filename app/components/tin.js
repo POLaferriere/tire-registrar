@@ -23,6 +23,15 @@ const TIN = React.createClass({
 		}
 	},
 
+	componentWillReceiveProps(props) {
+		if(props.tire.length == 0) {
+			this.setState({
+				plantInfo: false,
+				dateInfo: false,
+			})
+		}	
+	},
+
 	componentDidMount() {
 		let plants = store.getPlantCollection();
 		plants.fetch().then(() => {this.setState({plants: plants})})
