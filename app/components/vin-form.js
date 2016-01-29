@@ -13,7 +13,7 @@ const VINForm = React.createClass({
 	},
 
 	handleChange(e) {
-		let vin = e.target.value;
+		let vin = e.target.value.toUpperCase();
 		this.props.onChange('vin', vin);
 		if (vin.length != 17) {
 			this.setState({

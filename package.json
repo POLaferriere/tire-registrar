@@ -42,6 +42,9 @@
     "react-bootstrap": "^0.28.2",
     "react-fa": "^4.0.0",
     "react-file-processor": "0.0.1",
+    "react-redux": "^4.0.6",
+    "react-router-redux": "^2.1.0",
+    "redux": "^3.0.6",
     "underscore": "^1.8.3"
   }
 }

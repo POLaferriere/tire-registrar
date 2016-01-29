@@ -41,6 +41,7 @@ var App = React.createClass({
               {this.state.loggedIn &&
                 <div>
                   <ul className="app-header-links">
+                    <li className='app-header-link'><Link to='/db-test'>TEST</Link></li>
                     <li className='app-header-link'><Link to='/settings'>Settings</Link></li>
                     <li className='app-header-link'><Link to='/logout'>Logout</Link></li>
                   </ul>

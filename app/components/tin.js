@@ -19,6 +19,7 @@ const TIN = React.createClass({
 			plantInfo: false,
 			dateInfo: false,
 			plantError: false,
+			dateError: false,
 		}
 	},
 
@@ -29,7 +30,7 @@ const TIN = React.createClass({
 
 	handleChange(i, e) {
 		let tin = this.props.tire;
-		tin[i] = e.target.value
+		tin[i] = e.target.value.toUpperCase();
 		this.props.onChange(tin)
 
 		let tire = this.props.tire
@@ -64,11 +65,31 @@ const TIN = React.createClass({
 		}
 
 		if (/^[0-9]{4}$/ig.test(tire[2])) {
+			let week = tire[2].slice(0,2);
+			let year = tire[2].slice(2,4);
+			console.log(year);
 			this.setState({
 				dateInfo: true,
-				week: tire[2].slice(0,2),
-				year: tire[2].slice(2,4),
-			})
+			});
+			if (week > 0 && week <= 52) {
+				this.setState({
+					dateError: false,
+					week: week,
+				});
+				if (year > String(new Date().getFullYear()).slice(2,4)) {
+					this.setState({
+						year: '19' + year,
+					})
+				} else {
+					this.setState({
+						year: '20' + year,
+					})
+				}
+			} else {
+				this.setState({
+					dateError: true,
+				})
+			}
 		} else {
 			this.setState({
 				dateInfo: false,
@@ -159,7 +180,8 @@ const TIN = React.createClass({
 					{this.state.dateInfo &&
 							<div className="date-info">
 							<p>{'Manufactured: '}</p>
-							<p>{'Week '+ this.state.week + ' of 20' + this.state.year}</p>
+							{!this.state.dateError && <p>{'Week '+ this.state.week + ' of ' + this.state.year}</p>}
+							{this.state.dateError && <p>Invalid date format</p>}
 						</div>}
 				</TransitionGroup>
 
